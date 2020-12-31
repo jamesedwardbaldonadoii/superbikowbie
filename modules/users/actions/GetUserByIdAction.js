@@ -1,30 +1,28 @@
-// const { RequestRule } = require('../../../lib')
-
-const { BaseAction } = require('../../../rootcommmon/BaseAction')
-const { UserDAO } = require('../../../dao/UserDAO')
-// const { UserModel } = require('../../../models/UserModel')
+const Joi = require('joi');
+const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { UserDAO } = require('../../../dao/UserDAO');
 
 /**
  * @description return user by id
  */
 class GetUserByIdAction extends BaseAction {
   static get accessTag () {
-    return 'users:get-by-id'
+    return 'users:get-by-id';
   }
 
   static get validationRules () {
     return {
       params: {
-        // id: new RequestRule(UserModel.schema.id, { required: true })
+        id: Joi.string().required().uuid()
       }
-    }
+    };
   }
 
   static async run (ctx) {
-    const model = await UserDAO.baseGetById(ctx.params.id)
+    const model = await UserDAO.baseGetById(ctx.params.id);
 
-    return this.result({ data: model })
+    return this.result({ data: model });
   }
 }
 
-module.exports = { GetUserByIdAction }
+module.exports = { GetUserByIdAction };

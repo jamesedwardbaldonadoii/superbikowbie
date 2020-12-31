@@ -1,41 +1,39 @@
-const { RequestRule } = require('../../../lib')
-
-const { BaseAction } = require('../../../rootcommmon/BaseAction')
-const { UserDAO } = require('../../../dao/UserDAO')
-const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO')
-const { makePasswordHash } = require('../common/makePasswordHash')
-const { checkPassword } = require('../../../rootcommmon/checkPassword')
-
-const UserSchema = require('../../../models/UserSchema')
+const Joi = require('joi');
+const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { UserDAO } = require('../../../dao/UserDAO');
+const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
+const { makePasswordHash } = require('../common/makePasswordHash');
+const { checkPassword } = require('../../../rootcommmon/checkPassword');
+const { password } = require('../../../rootcommmon/customValidation');
 
 class ChangePasswordAction extends BaseAction {
   static get accessTag () {
-    return 'users:change-password'
+    return 'users:change-password';
   }
 
   static get validationRules () {
     return {
       body: {
-        oldPassword: new RequestRule(UserSchema.obj.password.validation, { required: true }),
-        newPassword: new RequestRule(UserSchema.obj.password.validation, { required: true })
+        oldPassword: Joi.string().required(),
+        newPassword: Joi.string().required().custom(password)
       }
-    }
+    };
   }
 
   static async run (ctx) {
-    const { currentUser } = ctx
+    const { currentUser } = ctx;
 
-    const userModel = await UserDAO.baseGetById(currentUser.id)
-    await checkPassword(ctx.body.oldPassword, userModel.password)
-    const newHash = await makePasswordHash(ctx.body.newPassword)
+    const userModel = await UserDAO.baseGetById(currentUser.id);
+    await checkPassword(ctx.body.oldPassword, userModel.password);
+    const newHash = await makePasswordHash(ctx.body.newPassword);
 
     await Promise.all([
       RefreshSessionDAO.baseRemoveWhere({ userId: currentUser.id }), // Changing password will remove all logged in refresh sessions
       UserDAO.baseUpdate(currentUser.id, { password: newHash })
-    ])
+    ]);
 
-    return this.result({ message: 'Password changed' })
+    return this.result({ message: 'Password changed' });
   }
 }
 
-module.exports = { ChangePasswordAction }
+module.exports = { ChangePasswordAction };

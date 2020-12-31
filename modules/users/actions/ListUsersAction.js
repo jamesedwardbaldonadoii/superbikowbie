@@ -1,12 +1,12 @@
-const { BaseAction } = require('../../../rootcommmon/BaseAction')
-const { UserDAO } = require('../../../dao/UserDAO')
+const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { UserDAO } = require('../../../dao/UserDAO');
 
 /**
  * @description return users list
  */
 class ListUsersAction extends BaseAction {
   static get accessTag () {
-    return 'users:list'
+    return 'users:list';
   }
 
   static get validationRules () {
@@ -14,23 +14,23 @@ class ListUsersAction extends BaseAction {
       query: {
         ...this.baseQueryParams
       }
-    }
+    };
   }
 
   static async run (req) {
-    const { query } = req
+    const { query } = req;
 
-    if (!query.fields) query.fields = '-password -provider'
+    if (!query.fields) query.fields = '-password -provider';
 
-    const { data, total } = await UserDAO.baseGetList({ ...query })
+    const { data, total } = await UserDAO.baseGetList({ ...query });
 
     return this.result({
       data: data,
       headers: {
         'X-Total-Count': total
       }
-    })
+    });
   }
 }
 
-module.exports = { ListUsersAction }
+module.exports = { ListUsersAction };

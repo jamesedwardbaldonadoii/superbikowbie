@@ -1,11 +1,8 @@
-const { RequestRule, Rule } = require('../lib')
-
-const { BaseAction } = require('./../rootcommmon/BaseAction')
-const { UserModel } = require('../models/UserModel')
+const { BaseAction } = require('./../rootcommmon/BaseAction');
 
 class TemplateAction extends BaseAction {
   static get accessTag () {
-    return 'template:template'
+    return 'template:template';
   }
 
   static get validationRules () {
@@ -15,19 +12,13 @@ class TemplateAction extends BaseAction {
         ...this.baseQueryParams
       },
       body: {
-        id: new RequestRule(UserModel.schema.id, { required: true }),
-        name: new RequestRule(UserModel.schema.name),
-        test: new RequestRule(new Rule({
-          validator: v => typeof v === 'string' && v.length >= 8,
-          description: 'string; min 8 chars;'
-        }))
       }
-    }
+    };
   }
 
   static run (ctx) {
-    return this.result({})
+    return this.result({});
   }
 }
 
-module.exports = { TemplateAction }
+module.exports = { TemplateAction };

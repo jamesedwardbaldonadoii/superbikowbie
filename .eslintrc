@@ -12,10 +12,9 @@
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
-    "semi": ["error", "never"],
+    "semi": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
     "key-spacing": ["error", {"afterColon": true}],
     "no-multi-spaces": "error"
   }
 }
-

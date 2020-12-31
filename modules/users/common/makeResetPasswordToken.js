@@ -1,17 +1,17 @@
-const { assert } = require('../../../lib')
-const { jwtSign } = require('../../../rootcommmon/jwt')
+const { assert } = require('../../../lib');
+const { jwtSign } = require('../../../rootcommmon/jwt');
 
-const SECRET = require('../../../config').token.resetPassword.secret
-const expiresIn = require('../../../config').token.resetPassword.expiresIn
-const type = require('../../../config').token.resetPassword.type
-const iss = require('../../../config').token.jwtIss
+const SECRET = require('../../../config').token.resetPassword.secret;
+const expiresIn = require('../../../config').token.resetPassword.expiresIn;
+const type = require('../../../config').token.resetPassword.type;
+const iss = require('../../../config').token.jwtIss;
 // const { UserModel } = require('../../../models/UserModel')
 
 /**
  * @return {Promise} string
  */
 function makeResetPasswordToken (userEntity) {
-  assert.object(userEntity, { required: true })
+  assert.object(userEntity, { required: true });
   // assert.validate(userEntity.id, UserModel.schema.id, { required: true })
   // assert.validate(userEntity.email, UserModel.schema.email, { required: true })
 
@@ -27,9 +27,9 @@ function makeResetPasswordToken (userEntity) {
       subject: userEntity.id,
       expiresIn
     }
-  }
+  };
 
-  return jwtSign(config.payload, SECRET, config.options)
+  return jwtSign(config.payload, SECRET, config.options);
 }
 
-module.exports = { makeResetPasswordToken }
+module.exports = { makeResetPasswordToken };

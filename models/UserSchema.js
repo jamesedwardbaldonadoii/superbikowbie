@@ -1,109 +1,73 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const BaseSchema = require('./BaseSchema')
-const { Rule, validator } = require('../lib')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const BaseSchema = require('./BaseSchema');
+const validator = require('validator');
 
 // Create Schema
 const UserSchema = new Schema({
   firstname: {
     type: String,
     required: true,
-    minlength: 2,
-    form: 'text',
-    maxlength: 100,
-    validation: new Rule({
-      validator: v => typeof v === 'string',
-      description: 'string;'
-    })
+    trim: true
   },
   lastname: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 100,
-    form: 'text',
-    validation: new Rule({
-      validator: v => typeof v === 'string',
-      description: 'string;'
-    })
+    trim: true
   },
   email: {
     type: String,
-    unique: true,
-    form: 'email',
     required: true,
-    match: [/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please add a valid email address.', /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.toString()],
-    validation: new Rule({
-      validator: e => validator.isEmail(e),
-      description: 'string;'
-    })
+    unique: true,
+    trim: true,
+    lowercase: true,
+    validate (value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Invalid email');
+      }
+    }
   },
   username: {
     type: String,
     unique: true,
-    form: 'text',
-    required: false,
-    validation: new Rule({
-      validator: v => typeof v === 'string',
-      description: 'string;'
-    })
+    trim: true,
+    required: false
   },
   suffix: {
-    type: String,
-    form: 'enum',
-    placeholder: 'Select Suffix',
-    enum: ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV'],
-    validation: new Rule({
-      validator: p => ['I', 'II', 'Jr.', 'Sr.', 'III'].indexOf(p) > -1,
-      description: 'value enum missing'
-    })
+    type: String
   },
   password: {
     type: String,
-    form: 'password',
-    minlength: 7,
-    maxlength: 100,
     required: true,
-    validate: [
-      p => p && p.length > 6,
-      'Password should be longer'
-    ],
-    validation: new Rule({
-      validator: p => typeof p === 'string' && p.length > 6,
-      description: 'string; min 7 characters'
-    })
+    trim: true,
+    minlength: 8,
+    validate (value) {
+      if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
+        throw new Error('Password must contain at least one letter and one number');
+      }
+    }
   },
   role: {
     type: String,
-    form: 'enum',
     default: 'user',
-    placeholder: 'Select Employee Role',
-    enum: ['superadmin', 'user'],
-    validation: new Rule({
-      validator: p => ['superadmin', 'user'].indexOf(p) > -1,
-      description: 'value enum missing'
-    })
+    enum: ['superadmin', 'user']
   },
   provider: {
     type: String,
-    form: 'text',
+    trim: true,
     default: 'local',
-    enum: ['local', 'fingerprint'],
-    validation: new Rule({
-      validator: p => ['local', 'fingerprint'].indexOf(p) > -1,
-      description: 'value enum missing'
-    })
+    enum: ['local', 'fingerprint']
   },
   providerId: {
-    form: 'text',
-    type: String
+    type: String,
+    trim: true
   },
   ...BaseSchema
-})
+});
 
 UserSchema.virtual('fullname').get(function () {
-  return `${this.firstname} ${this.lastname} ${this.suffix ? this.suffix : ''}`
-})
+  return `${this.firstname} ${this.lastname} ${this.suffix ? this.suffix : ''}`;
+});
 
 UserSchema.methods.getPublicFields = function () {
   var returnObject = {
@@ -113,14 +77,14 @@ UserSchema.methods.getPublicFields = function () {
     username: this.username,
     suffix: this.suffix,
     role: this.role
-  }
+  };
 
-  return returnObject
-}
+  return returnObject;
+};
 
 UserSchema.set('toJSON', {
   getters: true,
   virtuals: true
-})
+});
 
-module.exports = UserSchema
+module.exports = UserSchema;

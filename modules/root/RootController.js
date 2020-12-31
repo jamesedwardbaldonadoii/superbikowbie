@@ -1,22 +1,22 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-const { BaseController } = require('../../rootcommmon/BaseController')
-const RootProvider = require('../RootProvider')
+const { BaseController } = require('../../rootcommmon/BaseController');
+const RootProvider = require('../RootProvider');
 
 class RootController extends BaseController {
   get router () {
     router.get('/', (req, res) => {
-      res.send('API OK! (>___<)')
-    })
+      res.send('API OK! (>___<)');
+    });
 
-    return router
+    return router;
   }
 
   async init () {
-    this.logger.debug(`${this.constructor.name} initialized...`)
-    await RootProvider.init()
+    this.logger.debug(`${this.constructor.name} initialized...`);
+    await RootProvider.init();
   }
 }
 
-module.exports = { RootController }
+module.exports = { RootController };

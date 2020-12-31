@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const BaseSchema = require('./BaseSchema')
-const { Rule, validator } = require('../lib')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const BaseSchema = require('./BaseSchema');
 
 const SessionSchema = new Schema({
   user: {
@@ -10,19 +9,11 @@ const SessionSchema = new Schema({
   },
   refreshToken: {
     type: String,
-    required: true,
-    validation: new Rule({
-      validator: v => validator.isUuid(v),
-      description: 'string; UUID;'
-    })
+    required: true
   },
   fingerprint: {
     type: String,
-    required: true,
-    validation: new Rule({ // https://github.com/Valve/fingerprintjs2
-      validator: v => (typeof v === 'string') && v.length >= 10 && v.length <= 50,
-      description: 'string; min 10; max 50 chars;'
-    })
+    required: true
   },
   ua: {
     type: Object,
@@ -37,6 +28,6 @@ const SessionSchema = new Schema({
     required: false
   },
   ...BaseSchema
-})
+});
 
-module.exports = SessionSchema
+module.exports = SessionSchema;
