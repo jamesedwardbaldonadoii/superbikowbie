@@ -17,8 +17,8 @@ class BaseRoleAccess {
 
       'auth:logout': true,
       'auth:logout-all-sessions': true
-    }
+    };
   }
 }
 
-module.exports = BaseRoleAccess
+module.exports = BaseRoleAccess;

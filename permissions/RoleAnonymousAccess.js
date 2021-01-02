@@ -11,8 +11,8 @@ class RoleAnonymousAccess {
 
       'auth:login': true,
       'auth:refresh-tokens': true
-    }
+    };
   }
 }
 
-module.exports = RoleAnonymousAccess
+module.exports = RoleAnonymousAccess;

@@ -1,5 +1,5 @@
-const { errorCodes, AppError, assert } = require('../lib')
-const roles = require('../permissions/roles')
+const { errorCodes, AppError, assert } = require('../lib');
+const roles = require('../permissions/roles');
 
 /**
  * @description model id === current user id
@@ -7,15 +7,15 @@ const roles = require('../permissions/roles')
  * @case update user model
  */
 module.exports = (model, currentUser) => {
-  assert.object(model, { required: true })
-  assert.object(currentUser, { required: true })
+  assert.object(model, { required: true });
+  assert.object(currentUser, { required: true });
 
   return new Promise((resolve, reject) => {
     // pass superadmin
-    if (currentUser.role === roles.superadmin) return resolve()
+    if (currentUser.role === roles.superadmin) return resolve();
     // pass owner
-    if (currentUser.id === model._id) return resolve()
+    if (currentUser.id === model._id) return resolve();
     // else reject
-    return reject(new AppError({ ...errorCodes.FORBIDDEN }))
-  })
-}
+    return reject(new AppError({ ...errorCodes.FORBIDDEN }));
+  });
+};

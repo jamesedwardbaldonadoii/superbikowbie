@@ -1,12 +1,12 @@
-const { BaseConfig } = require('../rootcommmon/BaseConfig')
-const expiresInRegexp = /^(\d\d?m$|\d\d?h$|\d\d?d$)/ // valid minutes, hours, days like: 1m, 1h, 1d, 11m, 11h, 11d
-const logger = require('../logger')
+const { BaseConfig } = require('../rootcommmon/BaseConfig');
+const expiresInRegexp = /^(\d\d?m$|\d\d?h$|\d\d?d$)/; // valid minutes, hours, days like: 1m, 1h, 1d, 11m, 11h, 11d
+const logger = require('../logger');
 
 class TokenConfig extends BaseConfig {
   constructor () {
-    super()
+    super();
 
-    this.jwtIss = this.set('JWT_ISS', this.joi.string().required())
+    this.jwtIss = this.set('JWT_ISS', this.joi.string().required());
 
     this.access = {
       type: 'TOKEN_TYPE_ACCESS',
@@ -17,13 +17,13 @@ class TokenConfig extends BaseConfig {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        }
+        };
       }
-    }
+    };
 
     this.refresh = {
       expiresIn: this.set('TOKEN_REFRESH_EXP', this.joi.string().regex(expiresInRegexp).required())
-    }
+    };
 
     this.resetPassword = {
       type: 'TOKEN_TYPE_RESET_PASSWORD',
@@ -34,9 +34,9 @@ class TokenConfig extends BaseConfig {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        }
+        };
       }
-    }
+    };
 
     this.emailConfirm = {
       type: 'TOKEN_TYPE_EMAIL_CONFIRM',
@@ -47,14 +47,14 @@ class TokenConfig extends BaseConfig {
           type: this.type,
           secret: `${this.secret.substr(0, 1)}****${this.secret.substr(this.secret.length - 1)}`,
           expiresIn: this.expiresIn
-        }
+        };
       }
-    }
+    };
   }
 
   async init () {
-    logger.debug(`${this.constructor.name}: Initialization finish...`)
+    logger.debug(`${this.constructor.name}: Initialization finish...`);
   }
 }
 
-module.exports = new TokenConfig()
+module.exports = new TokenConfig();

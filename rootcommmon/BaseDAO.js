@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const moment = require('moment')
+const mongoose = require('mongoose');
+const moment = require('moment');
 
-const errorCodes = require('../lib/errorCodes')
-const { AppError } = require('../lib/AppError')
-const { Assert: assert } = require('../lib/assert')
+const errorCodes = require('../lib/errorCodes');
+const { AppError } = require('../lib/AppError');
+const { Assert: assert } = require('../lib/assert');
 
 class BaseDAO {
   /**
@@ -13,23 +13,23 @@ class BaseDAO {
    */
 
   static errorEmptyResponse () {
-    return new AppError({ ...errorCodes.NOT_FOUND, layer: 'DAO' })
+    return new AppError({ ...errorCodes.NOT_FOUND, layer: 'DAO' });
   }
 
   static emptyPageResponse () {
-    return { results: [], total: 0 }
+    return { results: [], total: 0 };
   }
 
   static emptyListResponse () {
-    return []
+    return [];
   }
 
   static emptyObjectResponse () {
-    return {}
+    return {};
   }
 
   static query () {
-    return mongoose.model(this.model)
+    return mongoose.model(this.model);
   }
 
   /**
@@ -39,7 +39,7 @@ class BaseDAO {
    */
 
   $beforeUpdate () {
-    this.updatedAt = new Date().toISOString()
+    this.updatedAt = new Date().toISOString();
   }
 
   /**
@@ -49,61 +49,61 @@ class BaseDAO {
    */
 
   static async baseCreate (entity = {}) {
-    assert.object(entity, { required: true })
+    assert.object(entity, { required: true });
 
-    const data = await this.query()(entity).save()
+    const data = await this.query()(entity).save();
 
-    if (!data) throw this.errorEmptyResponse()
+    if (!data) throw this.errorEmptyResponse();
 
-    return data
+    return data;
   }
 
   static async baseUpdate (id, entity = {}) {
-    assert.id(id, { required: true })
-    assert.object(entity, { required: true })
+    assert.id(id, { required: true });
+    assert.object(entity, { required: true });
 
     const data = await this.query()
       .findByIdAndUpdate(id, entity, { new: true })
-      .select(Object.keys(entity).join(' '))
+      .select(Object.keys(entity).join(' '));
 
-    if (!data) throw this.errorEmptyResponse()
+    if (!data) throw this.errorEmptyResponse();
 
-    return data
+    return data;
   }
 
   static async baseBulkUpdate ({ id, payload } = {}) {
-    assert.array(id, { required: true })
-    assert.object(payload, { required: true })
+    assert.array(id, { required: true });
+    assert.object(payload, { required: true });
 
     const data = await this.query()
       .update({ _id: { $in: id } },
         { $set: payload },
         { multi: true })
-      .select(Object.keys(payload).join(' '))
-    console.log(data)
-    if (!data) throw this.errorEmptyResponse()
+      .select(Object.keys(payload).join(' '));
+    console.log(data);
+    if (!data) throw this.errorEmptyResponse();
 
-    return data
+    return data;
   }
 
   static async baseGetList ({ page, limit, filter, orderBy, fields, search, searchFields } = {}) {
-    assert.integer(page, { required: true })
-    assert.integer(limit, { required: true })
-    assert.object(filter, { required: true })
-    assert.string(fields, { required: false })
+    assert.integer(page, { required: true });
+    assert.integer(limit, { required: true });
+    assert.object(filter, { required: true });
+    assert.string(fields, { required: false });
 
-    if (!filter) filter = {}
+    if (!filter) filter = {};
 
     if (searchFields && search) {
-      const fieldsToFilter = searchFields.split(',')
+      const fieldsToFilter = searchFields.split(',');
 
       if (!filter['$and']) {
-        filter['$and'] = []
+        filter['$and'] = [];
       }
 
       const searchCondition = {
         $or: []
-      }
+      };
 
       fieldsToFilter.forEach(i => {
         if (i) {
@@ -112,15 +112,15 @@ class BaseDAO {
               $regex: search,
               $options: 'i'
             }
-          })
+          });
         }
-      })
+      });
 
-      filter['$and'].push(searchCondition)
+      filter['$and'].push(searchCondition);
     }
 
-    filter.deletedAt = null
-    filter.deletedBy = null
+    filter.deletedAt = null;
+    filter.deletedBy = null;
 
     const data = await this.query()
       .find(filter)
@@ -128,60 +128,60 @@ class BaseDAO {
       .limit(limit)
       .sort(orderBy)
       .select(fields)
-      .exec()
+      .exec();
 
-    const total = await this.query().countDocuments(filter).exec()
+    const total = await this.query().countDocuments(filter).exec();
 
-    return { data, total }
+    return { data, total };
   }
 
   static async baseGetCount (filter = {}) {
-    assert.object(filter, { required: true })
+    assert.object(filter, { required: true });
 
-    const count = await this.query().countDocuments(filter).exec()
+    const count = await this.query().countDocuments(filter).exec();
 
-    return count
+    return count;
   }
 
   static async baseFindOneByKey (where = {}) {
-    assert.object(where, { required: true })
+    assert.object(where, { required: true });
 
-    const data = await this.query().findOne(where).exec()
+    const data = await this.query().findOne(where).exec();
 
-    if (!data) throw this.errorEmptyResponse()
+    if (!data) throw this.errorEmptyResponse();
 
-    return data
+    return data;
   }
 
   static async baseGetById (id) {
-    assert.id(id, { required: true })
+    assert.id(id, { required: true });
 
-    const data = await this.query().findById(id).exec()
+    const data = await this.query().findById(id).exec();
 
-    if (!data) throw this.errorEmptyResponse()
+    if (!data) throw this.errorEmptyResponse();
 
-    return data
+    return data;
   }
 
   static async baseRemove (id, currentUserId) {
-    assert.id(id, { required: true })
+    assert.id(id, { required: true });
 
     const data = await this.query()
       .findByIdAndUpdate(id, {
         deletedAt: moment(),
         deletedBy: currentUserId
-      }, { new: true })
+      }, { new: true });
 
-    return data
+    return data;
   }
 
   static async baseRemoveWhere (where = {}) {
-    assert.object(where, { required: true })
+    assert.object(where, { required: true });
 
-    const data = await mongoose.model(this.model).findOneAndRemove(where).exec()
+    const data = await mongoose.model(this.model).findOneAndRemove(where).exec();
 
-    return data
+    return data;
   }
 }
 
-module.exports = { BaseDAO }
+module.exports = { BaseDAO };

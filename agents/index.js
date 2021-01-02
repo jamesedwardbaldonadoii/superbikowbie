@@ -1,5 +1,5 @@
-const { EmailAgent } = require('./EmailAgent')
+const { EmailAgent } = require('./EmailAgent');
 
 module.exports = {
   EmailAgent
-}
+};

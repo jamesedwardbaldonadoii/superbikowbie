@@ -1,7 +1,7 @@
-const roles = require('./roles')
-const RoleUserAccess = require('./RoleUserAccess')
-const RoleAnonymousAccess = require('./RoleAnonymousAccess')
-const RoleSuperAdminAccess = require('./RoleSuperAdminAccess')
+const roles = require('./roles');
+const RoleUserAccess = require('./RoleUserAccess');
+const RoleAnonymousAccess = require('./RoleAnonymousAccess');
+const RoleSuperAdminAccess = require('./RoleSuperAdminAccess');
 
 module.exports = {
   [roles.superadmin]: {
@@ -10,4 +10,4 @@ module.exports = {
   },
   [roles.anonymous]: RoleAnonymousAccess.can,
   [roles.user]: RoleUserAccess.can
-}
+};

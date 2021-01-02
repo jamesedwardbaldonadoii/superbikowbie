@@ -1,10 +1,10 @@
-const { assert } = require('../lib')
+const { assert } = require('../lib');
 
 module.exports = (model, currentUser) => {
-  assert.object(model, { required: true })
-  assert.object(currentUser, { required: true })
+  assert.object(model, { required: true });
+  assert.object(currentUser, { required: true });
 
   return new Promise((resolve, reject) => {
-    currentUser.id === model.userId ? resolve(true) : resolve(false)
-  })
-}
+    currentUser.id === model.userId ? resolve(true) : resolve(false);
+  });
+};

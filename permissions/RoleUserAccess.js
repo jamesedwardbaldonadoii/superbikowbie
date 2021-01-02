@@ -1,11 +1,11 @@
-const BaseRoleAccess = require('./BaseRoleAccess')
+const BaseRoleAccess = require('./BaseRoleAccess');
 
 class RoleUserAccess extends BaseRoleAccess {
   static get can () {
     return {
       ...this.basePermissions
-    }
+    };
   }
 }
 
-module.exports = RoleUserAccess
+module.exports = RoleUserAccess;

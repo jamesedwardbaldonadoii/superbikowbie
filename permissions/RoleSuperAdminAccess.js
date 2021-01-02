@@ -1,4 +1,4 @@
-const BaseRoleAccess = require('./BaseRoleAccess')
+const BaseRoleAccess = require('./BaseRoleAccess');
 
 class RoleSuperAdminAccess extends BaseRoleAccess {
   static get can () {
@@ -9,8 +9,8 @@ class RoleSuperAdminAccess extends BaseRoleAccess {
       'users:change-employee-password': true,
       'users:bulk-delete': true,
       'users:bulk-update': true
-    }
+    };
   }
 }
 
-module.exports = RoleSuperAdminAccess
+module.exports = RoleSuperAdminAccess;
