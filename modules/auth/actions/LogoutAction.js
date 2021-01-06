@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { AppError, errorCodes } = require('../../../lib');
 
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
 
 /**

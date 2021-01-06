@@ -1,9 +1,9 @@
-const { BaseMiddleware } = require('../rootcommmon/BaseMiddleware')
-const logger = require('../logger')
+const { BaseMiddleware } = require('../rootcommon/BaseMiddleware');
+const logger = require('../logger');
 
 class QueryMiddleware extends BaseMiddleware {
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`);
   }
 
   handler () {
@@ -16,11 +16,11 @@ class QueryMiddleware extends BaseMiddleware {
         filter: req.query.filter || {},
         fields: req.query.fields || '',
         orderBy: req.query.orderBy ? JSON.parse(req.query.orderBy) : { createdAt: 'asc' }
-      } : { ...req.query }
+      } : { ...req.query };
 
-      next()
-    }
+      next();
+    };
   }
 }
 
-module.exports = { QueryMiddleware }
+module.exports = { QueryMiddleware };

@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the dist foldert
-      - npm run dev
+      - npm run start
   post_build:
     commands:
       - echo Build completed on `date`
@@ -17,5 +17,17 @@ phases:
 artifacts:
   files:
     - main.js
-    - dist/**/*
+    - logger.js
+    - .env
+    - agents/**/*
+    - config/**/*
+    - controllers/**/*
+    - dao/**/*
+    - lib/**/*
+    - middlewares/**/*
+    - models/**/*
+    - modules/**/*
+    - permissions/**/*
+    - policy/**/*
+    - rootcommon/**/*
     - node_modules/**/*

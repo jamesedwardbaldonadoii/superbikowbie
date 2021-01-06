@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { BaseController } = require('../../rootcommmon/BaseController');
+const { BaseController } = require('../../rootcommon/BaseController');
 const actions = require('./actions');
 
 class AuthController extends BaseController {

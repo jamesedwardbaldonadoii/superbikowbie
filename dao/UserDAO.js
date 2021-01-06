@@ -1,20 +1,20 @@
-const { assert } = require('../lib')
-const { BaseDAO } = require('../rootcommmon/BaseDAO')
+const { assert } = require('../lib');
+const { BaseDAO } = require('../rootcommon/BaseDAO');
 
 // Load User model
-const mongoose = require('mongoose')
-const User = mongoose.model('users')
+const mongoose = require('mongoose');
+const User = mongoose.model('users');
 
 class UserDAO extends BaseDAO {
   static get model () {
-    return 'users'
+    return 'users';
   }
 
   /**
    * Exclude private data
    */
   static get excluded () {
-    return '-password -deletedAt -provider -providerId -providerData'
+    return '-password -deletedAt -provider -providerId -providerData';
   }
 
   /**
@@ -29,13 +29,13 @@ class UserDAO extends BaseDAO {
    * @returns {Promise<object>}
    */
   static async getByEmail (email) {
-    assert.string(email, { required: true, notEmpty: true })
+    assert.string(email, { required: true, notEmpty: true });
 
-    const user = await User.findOne({ email }).exec()
+    const user = await User.findOne({ email }).exec();
 
-    if (!user) throw this.errorEmptyResponse()
+    if (!user) throw this.errorEmptyResponse();
 
-    return user
+    return user;
   }
 
   /**
@@ -44,13 +44,13 @@ class UserDAO extends BaseDAO {
    * @returns {Promise<object>}
    */
   static async getCurrentUser (id) {
-    assert.uuid(id, { required: true })
+    assert.uuid(id, { required: true });
 
-    const user = await User.findById(id).select(this.excluded).exec()
+    const user = await User.findById(id).select(this.excluded).exec();
 
-    if (!user) throw this.errorEmptyResponse()
+    if (!user) throw this.errorEmptyResponse();
 
-    return user
+    return user;
   }
 
   /**
@@ -59,12 +59,12 @@ class UserDAO extends BaseDAO {
    * @returns {Promise<boolean>}
    */
   static async isEmailExist (email) {
-    assert.string(email, { required: true, notEmpty: true })
+    assert.string(email, { required: true, notEmpty: true });
 
-    const user = await User.findOne({ email }).exec()
+    const user = await User.findOne({ email }).exec();
 
-    return Boolean(user)
+    return Boolean(user);
   }
 }
 
-module.exports = { UserDAO }
+module.exports = { UserDAO };

@@ -1,4 +1,4 @@
-const { BaseAction } = require('./../rootcommmon/BaseAction');
+const { BaseAction } = require('./../rootcommon/BaseAction');
 
 class TemplateAction extends BaseAction {
   static get accessTag () {

@@ -1,20 +1,20 @@
-const { errorCodes } = require('../lib')
-const { BaseMiddleware } = require('../rootcommmon/BaseMiddleware')
-const { jwtVerify } = require('../rootcommmon/jwt')
-const SECRET = require('../config').token.access.secret
-const roles = require('../permissions/roles')
-const logger = require('../logger')
+const { errorCodes } = require('../lib');
+const { BaseMiddleware } = require('../rootcommon/BaseMiddleware');
+const { jwtVerify } = require('../rootcommon/jwt');
+const SECRET = require('../config').token.access.secret;
+const roles = require('../permissions/roles');
+const logger = require('../logger');
 
 class CheckAccessTokenMiddleware extends BaseMiddleware {
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`);
   }
 
   handler () {
     return (req, res, next) => {
-      const authorization = req.headers['authorization'] || req.headers['Authorization']
-      const bearer = authorization && authorization.startsWith('Bearer ') ? authorization : null
-      const token = bearer ? bearer.split('Bearer ')[1] : null
+      const authorization = req.headers['authorization'] || req.headers['Authorization'];
+      const bearer = authorization && authorization.startsWith('Bearer ') ? authorization : null;
+      const token = bearer ? bearer.split('Bearer ')[1] : null;
 
       // set default meta data
       req.currentUser = Object.freeze({
@@ -23,7 +23,7 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
         role: roles.anonymous,
         email: null,
         expiresIn: null
-      })
+      });
 
       if (token) {
         return jwtVerify(token, SECRET)
@@ -35,24 +35,24 @@ class CheckAccessTokenMiddleware extends BaseMiddleware {
               role: tokenData.userRole,
               email: tokenData.email,
               expiresIn: Number(tokenData.exp)
-            })
+            });
 
-            next()
+            next();
           }).catch(error => {
             if (error.code === errorCodes.TOKEN_EXPIRED.code) {
               /**
                * pass request if token is not valid
                * in this case security service will consider that request as anonymous request
                */
-              next()
+              next();
             } else {
-              next(error)
+              next(error);
             }
-          })
+          });
       }
-      next()
-    }
+      next();
+    };
   }
 }
 
-module.exports = { CheckAccessTokenMiddleware }
+module.exports = { CheckAccessTokenMiddleware };

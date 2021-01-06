@@ -1,4 +1,4 @@
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { makeResetPasswordToken } = require('../common/makeResetPasswordToken');
 // const { ResetPasswordEmail } = require('../common/emails/ResetPasswordEmail')

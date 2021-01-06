@@ -3,16 +3,16 @@ const { AppError, errorCodes } = require('../../../lib');
 
 const Joi = require('joi');
 
-const { CookieEntity } = require('../../../rootcommmon/CookieEntity');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { CookieEntity } = require('../../../rootcommon/CookieEntity');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { addRefreshSession } = require('../common/addRefreshSession');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { RefreshSessionEntity } = require('../common/RefreshSessionEntity');
 const { makeAccessToken } = require('../common/makeAccessToken');
-const { checkPassword } = require('../../../rootcommmon/checkPassword');
+const { checkPassword } = require('../../../rootcommon/checkPassword');
 const config = require('../../../config');
 
-const { fingerprint } = require('../../../rootcommmon/customValidation');
+const { fingerprint } = require('../../../rootcommon/customValidation');
 
 class LoginAction extends BaseAction {
   static get accessTag () {

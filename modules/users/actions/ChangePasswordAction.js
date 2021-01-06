@@ -1,10 +1,10 @@
 const Joi = require('joi');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
 const { makePasswordHash } = require('../common/makePasswordHash');
-const { checkPassword } = require('../../../rootcommmon/checkPassword');
-const { password } = require('../../../rootcommmon/customValidation');
+const { checkPassword } = require('../../../rootcommon/checkPassword');
+const { password } = require('../../../rootcommon/customValidation');
 
 class ChangePasswordAction extends BaseAction {
   static get accessTag () {

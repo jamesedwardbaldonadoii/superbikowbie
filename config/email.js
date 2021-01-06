@@ -1,4 +1,4 @@
-const { BaseConfig } = require('../rootcommmon/BaseConfig');
+const { BaseConfig } = require('../rootcommon/BaseConfig');
 const logger = require('../logger');
 
 class EmailConfig extends BaseConfig {

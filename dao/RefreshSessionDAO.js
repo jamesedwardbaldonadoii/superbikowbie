@@ -1,9 +1,9 @@
-const { assert } = require('../lib')
-const { BaseDAO } = require('../rootcommmon/BaseDAO')
+const { assert } = require('../lib');
+const { BaseDAO } = require('../rootcommon/BaseDAO');
 
 class RefreshSessionDAO extends BaseDAO {
   static get model () {
-    return 'sessions'
+    return 'sessions';
   }
 
   /**
@@ -18,14 +18,14 @@ class RefreshSessionDAO extends BaseDAO {
    * @returns {Promise<object>}
    */
   static async getByRefreshToken (refreshToken) {
-    assert.string(refreshToken, { required: true, notEmpty: true })
+    assert.string(refreshToken, { required: true, notEmpty: true });
 
-    const result = await this.baseFindOneByKey({ refreshToken })
+    const result = await this.baseFindOneByKey({ refreshToken });
 
-    if (!result) throw this.errorEmptyResponse()
+    if (!result) throw this.errorEmptyResponse();
 
-    return result
+    return result;
   }
 }
 
-module.exports = { RefreshSessionDAO }
+module.exports = { RefreshSessionDAO };

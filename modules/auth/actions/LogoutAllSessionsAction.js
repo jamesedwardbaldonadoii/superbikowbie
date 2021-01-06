@@ -1,4 +1,4 @@
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
 
 class LogoutAllSessionsAction extends BaseAction { // TODO logout from all sessions except current

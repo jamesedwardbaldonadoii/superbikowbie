@@ -1,13 +1,13 @@
 const { errorCodes, AppError } = require('../../../lib');
 
 const Joi = require('joi');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { makePasswordHash } = require('../common/makePasswordHash');
-const { jwtVerify } = require('../../../rootcommmon/jwt');
+const { jwtVerify } = require('../../../rootcommon/jwt');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
 const config = require('../../../config');
-const { password } = require('../../../rootcommmon/customValidation');
+const { password } = require('../../../rootcommon/customValidation');
 
 /**
  * 1) verify resetPasswordToken

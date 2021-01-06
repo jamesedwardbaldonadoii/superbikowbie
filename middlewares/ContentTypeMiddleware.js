@@ -1,10 +1,10 @@
-const { AppError, errorCodes } = require('../lib')
-const { BaseMiddleware } = require('../rootcommmon/BaseMiddleware')
-const logger = require('../logger')
+const { AppError, errorCodes } = require('../lib');
+const { BaseMiddleware } = require('../rootcommon/BaseMiddleware');
+const logger = require('../logger');
 
 class ContentTypeMiddleware extends BaseMiddleware {
   async init () {
-    logger.debug(`${this.constructor.name} initialized...`)
+    logger.debug(`${this.constructor.name} initialized...`);
   }
 
   handler () {
@@ -12,25 +12,25 @@ class ContentTypeMiddleware extends BaseMiddleware {
       try {
         // validate content-type
         if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
-          const contentType = req.headers['Content-Type'] || req.headers['content-type']
+          const contentType = req.headers['Content-Type'] || req.headers['content-type'];
           if (!contentType) {
-            throw new AppError({ ...errorCodes.BAD_REQUEST, message: 'Please provide content-type' })
+            throw new AppError({ ...errorCodes.BAD_REQUEST, message: 'Please provide content-type' });
           }
 
-          const validContentType = ['application/json', 'multipart/form-data']
-          const isValidContentType = contentType.includes('application/json') || contentType.includes('multipart/form-data')
+          const validContentType = ['application/json', 'multipart/form-data'];
+          const isValidContentType = contentType.includes('application/json') || contentType.includes('multipart/form-data');
 
           if (!isValidContentType) {
-            throw new AppError({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` })
+            throw new AppError({ ...errorCodes.BAD_REQUEST, message: `Invalid content type. Expect one of: [${validContentType}]` });
           }
         }
 
-        next()
+        next();
       } catch (error) {
-        next(error)
+        next(error);
       }
-    }
+    };
   }
 }
 
-module.exports = { ContentTypeMiddleware }
+module.exports = { ContentTypeMiddleware };

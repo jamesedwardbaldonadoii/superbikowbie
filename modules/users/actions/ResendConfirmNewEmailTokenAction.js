@@ -1,6 +1,6 @@
 const { AppError, errorCodes } = require('../../../lib');
 
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { emailAgent } = require('../../RootProvider');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { makeEmailConfirmToken } = require('../common/makeEmailConfirmToken');

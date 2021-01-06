@@ -3,7 +3,7 @@ const { errorCodes, AppError } = require('../../../lib');
 const { ChangeEmail } = require('../common/emails/ChangeEmail');
 const { makeEmailConfirmToken } = require('../common/makeEmailConfirmToken');
 const { emailAgent } = require('../../RootProvider');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { UserDAO } = require('../../../dao/UserDAO');
 
 class ChangeEmailAction extends BaseAction {

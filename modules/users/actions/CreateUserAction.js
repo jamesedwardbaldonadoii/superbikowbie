@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 // const { emailAgent } = require('../../RootProvider')
 const { UserDAO } = require('../../../dao/UserDAO');
 // const { WelcomeEmail } = require('../common/emails/WelcomeEmail')
@@ -7,7 +7,7 @@ const { makeEmailConfirmToken } = require('../common/makeEmailConfirmToken');
 const { makePasswordHash } = require('../common/makePasswordHash');
 const logger = require('../../../logger');
 
-const { password } = require('../../../rootcommmon/customValidation');
+const { password } = require('../../../rootcommon/customValidation');
 
 class CreateUserAction extends BaseAction {
   static get accessTag () {

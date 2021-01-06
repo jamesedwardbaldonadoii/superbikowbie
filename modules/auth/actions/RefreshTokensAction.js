@@ -3,15 +3,15 @@ const Joi = require('joi');
 
 const { AppError, errorCodes } = require('../../../lib');
 
-const { CookieEntity } = require('../../../rootcommmon/CookieEntity');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { CookieEntity } = require('../../../rootcommon/CookieEntity');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { addRefreshSession } = require('../common/addRefreshSession');
 const { verifyRefreshSession } = require('../common/verifyRefreshSession');
 const { makeAccessToken } = require('../common/makeAccessToken');
 const { RefreshSessionEntity } = require('../common/RefreshSessionEntity');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { RefreshSessionDAO } = require('../../../dao/RefreshSessionDAO');
-const { fingerprint } = require('../../../rootcommmon/customValidation');
+const { fingerprint } = require('../../../rootcommon/customValidation');
 
 const config = require('../../../config');
 

@@ -1,5 +1,5 @@
 const { assert } = require('../../../lib');
-const { jwtSign } = require('../../../rootcommmon/jwt');
+const { jwtSign } = require('../../../rootcommon/jwt');
 
 const SECRET = require('../../../config').token.emailConfirm.secret;
 const expiresIn = require('../../../config').token.emailConfirm.expiresIn;

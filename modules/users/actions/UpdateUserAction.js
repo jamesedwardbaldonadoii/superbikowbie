@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { UserDAO } = require('../../../dao/UserDAO');
 const { updateUserPolicy } = require('../../../policy');
 

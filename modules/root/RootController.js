@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { BaseController } = require('../../rootcommmon/BaseController');
+const { BaseController } = require('../../rootcommon/BaseController');
 const RootProvider = require('../RootProvider');
 
 class RootController extends BaseController {

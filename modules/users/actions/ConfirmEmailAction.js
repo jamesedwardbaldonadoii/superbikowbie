@@ -1,8 +1,8 @@
 const Joi = require('joi');
 const { errorCodes, AppError } = require('../../../lib');
-const { BaseAction } = require('../../../rootcommmon/BaseAction');
+const { BaseAction } = require('../../../rootcommon/BaseAction');
 const { UserDAO } = require('../../../dao/UserDAO');
-const { jwtVerify } = require('../../../rootcommmon/jwt');
+const { jwtVerify } = require('../../../rootcommon/jwt');
 const config = require('../../../config');
 const logger = require('../../../logger');
 
