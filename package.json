@@ -6,13 +6,16 @@
     "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon ./main.js",
     "start:prod": "cross-env NODE_ENV=production node ./main.js",
-    "migrate": "",
-    "rollback": "",
-    "seed": "",
-    "test": "echo \">>> Keep in mind: to enshure right test you should set seed data and run server :) <<<\" && mocha test/*.test.js"
+    "test": "echo \">>> Keep in mind: to enshure right test you should set seed data and run server :) <<<\" && mocha test/*.test.js",
+    "dist": "mkdir -p dist && cp -R node_modules src server.js ... dist"
   },
   "engines": {
     "node": ">=12.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && node ./update-build.js"
+    }
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
