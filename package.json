@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Baciwa BE",
   "scripts": {
-    "start": "pm2 start ecosystem.config.json --no-daemon",
+    "start:prod": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon ./main.js",
-    "start:prod": "cross-env NODE_ENV=production node ./main.js",
+    "start": "cross-env NODE_ENV=production node ./main.js",
     "test": "echo \">>> Keep in mind: to enshure right test you should set seed data and run server :) <<<\" && mocha test/*.test.js"
   },
   "engines": {
