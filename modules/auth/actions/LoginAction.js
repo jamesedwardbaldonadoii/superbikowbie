@@ -68,7 +68,7 @@ class LoginAction extends BaseAction {
         new CookieEntity({
           name: 'refreshToken',
           value: newRefreshSession.refreshToken,
-          // domain: config.app.url,
+          domain: config.app.url,
           path: '/auth',
           maxAge: refTokenExpiresInSeconds,
           secure: false // temp: for local developmenmt
