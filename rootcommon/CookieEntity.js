@@ -36,7 +36,7 @@ class CookieEntity {
       httpOnly: validator.isDefined(httpOnly) ? httpOnly : true,
       signed: validator.isDefined(signed) ? signed : true,
       secure: validator.isDefined(secure) ? secure : true,
-      sameSite: validator.isDefined(sameSite) ? sameSite : true
+      sameSite: 'Lax'
     };
   }
 }
