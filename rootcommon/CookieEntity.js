@@ -16,7 +16,7 @@ class CookieEntity {
     assert.string(name, { required: true });
     assert.defined(value, { required: true });
     assert.integer(maxAge);
-    assert.string(domain);
+    // assert.string(domain);
     assert.boolean(httpOnly);
     assert.boolean(signed);
     assert.boolean(secure);
@@ -31,7 +31,7 @@ class CookieEntity {
     this.value = value;
     this.options = {
       ...(validator.isDefined(maxAge) && { maxAge }),
-      domain: validator.isDefined(domain) ? domain : '',
+      // domain: validator.isDefined(domain) ? domain : '',
       path: validator.isDefined(path) ? path : '/',
       httpOnly: validator.isDefined(httpOnly) ? httpOnly : true,
       signed: validator.isDefined(signed) ? signed : true,
