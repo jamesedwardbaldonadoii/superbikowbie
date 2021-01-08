@@ -68,10 +68,10 @@ class RefreshTokensAction extends BaseAction {
         new CookieEntity({
           name: 'refreshToken',
           value: newRefreshSession.refreshToken,
-          domain: 'localhost',
+          domain: config.app.url,
           path: '/auth',
           maxAge: refTokenExpiresInSeconds,
-          secure: false // for loca development only
+          secure: false // for local development only
         })
       ]
     });
